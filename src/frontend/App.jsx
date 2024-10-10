@@ -1,6 +1,6 @@
 import React from "react";
-import TodoApp from "./frontend/TodoApp";
-import "./App.css";
+import TodoApp from ".//components/TodoApp";
+import "../App.css";
 
 function App() {
     return (
