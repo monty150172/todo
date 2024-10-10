@@ -1,19 +1,33 @@
+/*global process*/
+/*eslint no-undef: "error"*/
+
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import { PORT, MONGODB_URI } from "./config.js";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: join(__dirname, ".env") });
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+    console.error("MONGODB_URI is not defined in the environment variables");
+    process.exit(1);
+}
 
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Verbindung
 mongoose
-    .connect(MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
+    .connect(MONGODB_URI)
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.log("MongoDB connection error:", err));
 

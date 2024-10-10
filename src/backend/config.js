@@ -17,3 +17,7 @@ if (!MONGODB_URI) {
     console.error("MONGODB_URI is not defined in the environment variables");
     process.exit(1);
 }
+
+console.log("Configuration loaded successfully");
+console.log(`PORT: ${PORT}`);
+console.log(`MONGODB_URI is ${MONGODB_URI ? "defined" : "not defined"}`);
